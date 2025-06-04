@@ -1,3 +1,5 @@
+console.log("🚀 Dumpster Fire viewer initialized");
+
 import * as THREE from 'three';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.150.1/examples/jsm/controls/OrbitControls.js';
 
