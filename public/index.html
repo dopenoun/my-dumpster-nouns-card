@@ -82,32 +82,47 @@
     const ambient = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambient);
 
-    // Create card
-    const fallbackMaterial = new THREE.MeshBasicMaterial({ color: 0xff00ff });
+    // Create card materials - start invisible
     const materials = [
-      new THREE.MeshBasicMaterial({ color: 0x333333 }),
-      new THREE.MeshBasicMaterial({ color: 0x333333 }),
-      new THREE.MeshBasicMaterial({ color: 0x333333 }),
-      new THREE.MeshBasicMaterial({ color: 0x333333 }),
-      fallbackMaterial, // front
-      fallbackMaterial  // back
+      new THREE.MeshBasicMaterial({ color: 0x333333, transparent: true, opacity: 0 }),
+      new THREE.MeshBasicMaterial({ color: 0x333333, transparent: true, opacity: 0 }),
+      new THREE.MeshBasicMaterial({ color: 0x333333, transparent: true, opacity: 0 }),
+      new THREE.MeshBasicMaterial({ color: 0x333333, transparent: true, opacity: 0 }),
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }), // front
+      new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 })  // back
     ];
 
     const geometry = new THREE.BoxGeometry(1.8, 2.5, 0.03);
     const card = new THREE.Mesh(geometry, materials);
     scene.add(card);
 
+    // Track loading
+    let texturesLoaded = 0;
+    const totalTextures = 2;
+
+    function showCard() {
+      // Fade in the card once textures are loaded
+      materials.forEach(material => {
+        material.opacity = 1;
+      });
+      console.log("🔥 Card is now visible!");
+    }
+
     // Load textures
     const loader = new THREE.TextureLoader();
     loader.load('./textures/giselle_front.png', function(texture) {
       materials[4] = new THREE.MeshBasicMaterial({ map: texture });
       card.material = materials;
+      texturesLoaded++;
       console.log("✅ Front texture loaded");
+      if (texturesLoaded === totalTextures) showCard();
     });
     loader.load('./textures/giselle_back.png', function(texture) {
       materials[5] = new THREE.MeshBasicMaterial({ map: texture });
       card.material = materials;
+      texturesLoaded++;
       console.log("✅ Back texture loaded");
+      if (texturesLoaded === totalTextures) showCard();
     });
 
     // Manual controls
@@ -208,10 +223,7 @@
       card.rotation.x = currentRotationX;
       card.rotation.y = currentRotationY;
       
-      // Auto-rotate when not interacting
-      if (!isMouseDown) {
-        targetRotationY += 0.005;
-      }
+      // No auto-rotation - only manual control
       
       renderer.render(scene, camera);
     }
