@@ -1,12 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Glorious Giselle Card</title>
-    <style>body { margin: 0; overflow: hidden; }</style>
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔥 Dumpster Fire Nouns Viewer</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: #111;
+      font-family: 'Courier New', monospace;
+    }
+
+    #viewer-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+    }
+
+    canvas#cardCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .watermark {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      color: #999;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="viewer-wrapper">
     <canvas id="cardCanvas"></canvas>
-    <script type="module" src="main.js?v=7"></script>
-  </body>
+  </div>
+  <div class="watermark">🔥 <code>ok.dope.</code> :: Dumpster Fire Nouns</div>
+
+  <script type="module" src="main.js?v=44"></script>
+</body>
 </html>
