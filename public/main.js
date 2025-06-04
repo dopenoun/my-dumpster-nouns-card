@@ -1,6 +1,6 @@
 console.log("🚀 Dumpster Fire viewer initialized");
 
-import * as THREE from 'three';
+import * as THREE from 'https://cdn.skypack.dev/three@0.150.1';
 import { OrbitControls } from 'https://cdn.skypack.dev/three@0.150.1/examples/jsm/controls/OrbitControls.js';
 
 const scene = new THREE.Scene();
