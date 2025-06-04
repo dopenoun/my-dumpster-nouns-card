@@ -1,0 +1,4 @@
+/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=0
+  Content-Security-Policy: default-src * data: blob: 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'
