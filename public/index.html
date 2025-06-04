@@ -40,10 +40,11 @@
   </div>
   <div class="watermark">🔥 <code>ok.dope.</code> :: Dumpster Fire Nouns</div>
   
-  <script type="module">
-    import * as THREE from 'https://cdn.skypack.dev/three@0.150.1';
-    import { OrbitControls } from 'https://cdn.skypack.dev/three@0.150.1/examples/jsm/controls/OrbitControls.js';
-
+  <!-- Load Three.js from CDN (non-module version) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+  
+  <script>
     console.log("🚀 Dumpster Fire viewer initialized");
     console.log("THREE loaded:", THREE);
 
@@ -106,15 +107,15 @@
     // Front texture
     loader.load(
       './textures/giselle_front.png',
-      (texture) => {
+      function(texture) {
         console.log("✅ Front texture loaded successfully");
         materials[4] = new THREE.MeshBasicMaterial({ map: texture });
         card.material = materials;
       },
-      (progress) => {
+      function(progress) {
         console.log("Front texture loading progress:", progress);
       },
-      (error) => {
+      function(error) {
         console.error("❌ Front texture failed to load:", error);
         console.log("Using fallback material for front");
       }
@@ -123,28 +124,28 @@
     // Back texture  
     loader.load(
       './textures/giselle_back.png',
-      (texture) => {
+      function(texture) {
         console.log("✅ Back texture loaded successfully");
         materials[5] = new THREE.MeshBasicMaterial({ map: texture });
         card.material = materials;
       },
-      (progress) => {
+      function(progress) {
         console.log("Back texture loading progress:", progress);
       },
-      (error) => {
+      function(error) {
         console.error("❌ Back texture failed to load:", error);
         console.log("Using fallback material for back");
       }
     );
 
-    // Controls
-    const controls = new OrbitControls(camera, renderer.domElement);
+    // Controls (using global THREE.OrbitControls)
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableZoom = true;
     controls.enablePan = false;
     console.log("Controls created");
 
     // Handle window resize
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', function() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
