@@ -42,7 +42,7 @@
   
   <!-- Load Three.js from CDN (non-module version) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
   
   <script>
     console.log("🚀 Dumpster Fire viewer initialized");
@@ -140,12 +140,16 @@
 
     // Controls (check if OrbitControls is available)
     let controls;
-    if (typeof THREE.OrbitControls !== 'undefined') {
+    try {
       controls = new THREE.OrbitControls(camera, renderer.domElement);
       controls.enableZoom = true;
-      controls.enablePan = false;
-      console.log("Controls created");
-    } else {
+      controls.enablePan = true;
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.autoRotate = true;
+      controls.autoRotateSpeed = 2.0; // Faster rotation
+      console.log("Controls created with OrbitControls");
+    } catch (error) {
       console.log("OrbitControls not available - using manual rotation only");
     }
 
@@ -166,9 +170,11 @@
       }
       frameCount++;
       
-      card.rotation.y += 0.002;
       if (controls) {
         controls.update();
+      } else {
+        // Manual rotation if no controls
+        card.rotation.y += 0.01; // Faster manual rotation
       }
       renderer.render(scene, camera);
     }
