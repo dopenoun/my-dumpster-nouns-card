@@ -138,11 +138,16 @@
       }
     );
 
-    // Controls (using global THREE.OrbitControls)
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableZoom = true;
-    controls.enablePan = false;
-    console.log("Controls created");
+    // Controls (check if OrbitControls is available)
+    let controls;
+    if (typeof THREE.OrbitControls !== 'undefined') {
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableZoom = true;
+      controls.enablePan = false;
+      console.log("Controls created");
+    } else {
+      console.log("OrbitControls not available - using manual rotation only");
+    }
 
     // Handle window resize
     window.addEventListener('resize', function() {
@@ -162,7 +167,9 @@
       frameCount++;
       
       card.rotation.y += 0.002;
-      controls.update();
+      if (controls) {
+        controls.update();
+      }
       renderer.render(scene, camera);
     }
 
