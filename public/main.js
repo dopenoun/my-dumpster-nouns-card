@@ -4,6 +4,7 @@ import { OrbitControls } from 'https://cdn.skypack.dev/three@0.150.1/examples/js
 
 console.log("🚀 Dumpster Fire viewer initialized");
 
+// ... rest of your working Three.js setup ...
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.z = 3;
